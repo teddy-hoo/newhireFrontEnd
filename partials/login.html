@@ -1,0 +1,23 @@
+<div id="login" class="fullscream" ng-show='showPages.pLogin'>
+    <div id="login" class="dark-gray container">
+        <div class="row">
+            <h1>
+                <span class="blue">new</span>hire</h1>
+        </div>
+        <div class="row">
+            <h2>{{info.candidates | number}} candidates, {{info.hires | number}} hires, {{info.users | number}} users</h2>
+        </div>
+        <div>
+            <div class="row">
+                <div class="form-inline" ng-keydown="keyDown($event)">
+                    <input class="form-control" type="text" placeholder="username" ng-model="userInfo.username" ng-change="validate()">
+                    <input class="form-control" type="password" placeholder="password" ng-model="userInfo.password" ng-change="validate()">
+                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="showLoadingIcon">
+                </div>
+            </div>
+            <div class="row" ng-show="showAlert">
+                <h3 id="inputAlert">{{ errmsg }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
