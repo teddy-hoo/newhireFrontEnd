@@ -1,0 +1,57 @@
+<!DOCTYPE>
+<html lang="en">
+
+<head>
+    <title>newhire</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/nhApp.css">
+    <script src="lib/requirejs/require.js" data-main="js/main.js"></script>
+
+</head>
+
+<body ng-controller="MainCtrl as main">
+    <div class="container">
+        <div class="navbar navbar-default navbar-fixed-top dark">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">
+                    <span class="blue">new</span>hire</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">updates <span class="label label-success">8</span></a>
+                </li>
+                <li><a href="">needs action <span class="label label-danger">2</span></a>
+                </li>
+                <li><a href="">openings <span class="label label-primary">15</span></a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="">
+                        <span class="glyphicon glyphicon-upload"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-ng-view></div>
+
+</body>
+
+</html>
