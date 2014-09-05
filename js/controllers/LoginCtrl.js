@@ -3,13 +3,39 @@ define(['./module'], function(controllers) {
     controllers.controller('LoginCtrl', [
         '$scope',
         '$http',
-        '$interval',
+        '$location',
+        '$timeout',
         'UserCountSvc',
-        function($scope, $http, $interval, UserCountSvc) {
-            
+        'LoginSvc',
+        function($scope, $http, $location, $timeout, UserCountSvc, LoginSvc) {
+
+            $scope.userInfo = {
+                "username": "",
+                "password": ""
+            };
+            $scope.errmsg = null;
+
+            var errmsgs = {
+                "unEmpty": "User name empty",
+                "pwError": "User name or password error"
+            };
+
             $scope.userCountInfo = {};
             UserCountSvc($scope.userCountInfo);
-
+            var loginFunc = function() {
+                $scope.showLoadingIcon = true;
+                LoginSvc.setUserInfo($scope.userInfo);
+                LoginSvc.login(function(isValid) {
+                    if (isValid) {
+                        $location.path("/home");
+                        $scope.$emit('showNavBar', true);
+                    } else {
+                        $scope.errmsg = errmsgs.pwError;
+                        $scope.showAlert = true;
+                        $scope.showLoadingIcon = false;
+                    }
+                });
+            };
             $scope.validate = function() {
                 $scope.timeOut && $timeout.cancel($scope.timeOut);
                 $scope.showLoadingIcon = false;

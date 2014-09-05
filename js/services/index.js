@@ -8,5 +8,6 @@
 define([
     './LoginSvc',
     './ChangeLocationSvc',
-    './UserCountSvc'
+    './UserCountSvc',
+    './LoginSvc'
 ], function() {});

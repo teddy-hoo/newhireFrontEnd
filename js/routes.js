@@ -3,7 +3,7 @@ define(['./nhApp'], function(nhApp) {
     return nhApp.config(['$routeProvider', '$locationProvider',
         function($routeProvider, $locationProvider) {
             $routeProvider
-                .when('/main', {
+                .when('main', {
                     controller: 'MainCtrl'
                 })
                 .when('/login', {
