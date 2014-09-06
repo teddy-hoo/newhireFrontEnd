@@ -203,14 +203,24 @@ footer {
     fill: transparent;
     -webkit-transform: translateY(-350px);
 }
-@-webkit-keyframes color_change {
+@-webkit-keyframes color_change_blue {
     from {
         fill: transparent;
     }
     to {
-        fill: red;
+        fill: blue;
     }
 }
+
+@-webkit-keyframes color_change_white {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: white;
+    }
+}
+
 @-webkit-keyframes stroke_change {
     from {
         stroke-width: 3;
@@ -218,4 +228,11 @@ footer {
     to {
         stroke-width: 0;
     }
+}
+
+.canvas{
+    width:715px; 
+    min-height:200px; 
+    background-color: rgba(0,0,0,0.4); 
+    box-shadow: 10px 10px 80px 10px  rgba(0,0,0,0.4);
 }
