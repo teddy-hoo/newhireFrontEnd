@@ -5,7 +5,7 @@ require.config({
         'angular-route': '../lib/angular-route/angular-route',
         'domReady': '../lib/requirejs-domready/domReady',
         'api': 'api',
-        'nhApp': 'ngApp'
+        'nhApp': 'nhApp'
     },
 
     shim: {
