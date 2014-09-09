@@ -1,7 +1,7 @@
 define(['nhApp'], function() {
     describe('nhApp', function() {
 
-        beforeEach(angular.module('nhApp'));
+        beforeEach(module('nhApp'));
 
         describe("MainCtrl", function() {
             var $scope, createController;
@@ -19,7 +19,7 @@ define(['nhApp'], function() {
             it("should hide navigation bar", function() {
                 var controller = createController();
                 $scope.showNavBar = false;
-                $scope.emit("showNavBar", false);
+                $scope.$emit("showNavBar", false);
                 expect($scope.showNavBar).toBe(false);
             });
 
