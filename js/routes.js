@@ -12,7 +12,7 @@ define(['./nhApp'], function(nhApp) {
                 })
                 .when('/home', {
                     templateUrl: 'partials/home.html',
-                    controller: 'LoginCtrl'
+                    controller: 'HomeCtrl'
                 })
                 .otherwise({
                     redirectTo: '/main'

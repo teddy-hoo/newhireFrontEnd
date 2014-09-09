@@ -1,5 +1,6 @@
 define(['api',
-    '../helper/dataSerialize'], function(API, dataSerialize) {
+    '../helper/dataSerialize'
+], function(API, dataSerialize) {
     var Login = function($http, userInfo) {
         this.userName = userInfo && ususerInfo.username;
         this.passWord = userInfo && userInfo.passWord;
@@ -29,6 +30,19 @@ define(['api',
             })
             .error(function(data) {
                 that.isValid = false;
+                callback(false);
+            });
+        return this;
+    };
+    Login.prototype.logout = function(callback) {
+        var that = this;
+        this.$http.delete(API.auth)
+            .success(function(data) {
+                that.isDeleted = true;
+                callback(true);
+            })
+            .error(function(data) {
+                that.isDeleted = false;
                 callback(false);
             });
         return this;

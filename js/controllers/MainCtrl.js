@@ -13,12 +13,18 @@ define(['./module'], function(controllers) {
                 "password": "tefdsst"
             });
             LoginSvc.login(function(isValid) {
-                //ChangeLocationSvc(isValid ? '/main' : '/login');
-                //$scope.showNavBar = isValid ? true : false;
+                ChangeLocationSvc(isValid ? '/main' : '/login');
+                $scope.showNavBar = isValid ? true : false;
             });
             $scope.$on('showNavBar', function(event, isShow) {
                 $scope.showNavBar = isShow;
             });
+            $scope.logout = function(){
+                LoginSvc.logout(function(isDeleted){
+                    ChangeLocationSvc('/login');
+                    $scope.showNavBar = false;
+                });
+            };
         }
     ]);
 });
