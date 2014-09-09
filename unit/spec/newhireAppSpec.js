@@ -1,14 +1,14 @@
-define([
-    'require',
-    'angular',
-    'nhApp',
-    'routes'
-], function() {
+define(['nhApp'], function() {
     describe('nhApp', function() {
+
+        beforeEach(angular.module('nhApp'));
+
         describe("MainCtrl", function() {
             var $scope, createController;
+            var $httpBackend, $scope, createController;
             beforeEach(inject(function($injector) {
-                $scope = $injector("$scope");
+                $scope = $injector.get('$rootScope');
+                var $controller = $injector.get('$controller');
                 createController = function() {
                     return $controller('MainCtrl', {
                         '$scope': $scope
@@ -17,15 +17,14 @@ define([
             }));
 
             it("should hide navigation bar", function() {
-                document.addEventListener("DOMContentLoaded", function() {
-                    var controller = createController();
-                    $scope.showNavBar = false;
-                    $scope.emit("showNavBar", false);
-                    expect($scope.showNavBar).toBe(false);
-                }, false);
+                var controller = createController();
+                $scope.showNavBar = false;
+                $scope.emit("showNavBar", false);
+                expect($scope.showNavBar).toBe(false);
             });
 
         });
+
         describe("cRealtimeInfo", function() {
             var $httpBackend, $rootScope, createController;
             beforeEach(inject(function($injector) {

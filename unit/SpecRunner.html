@@ -17,26 +17,21 @@
     <script type="text/javascript" src="lib/angular-cookies.min.js"></script>
     <script type="text/javascript" src="lib/angular-mocks.js"></script>
 
-    <!-- angular js
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.js"></script>
-    <script type="text/javascript" src="https://code.angularjs.org/1.2.9/angular-cookies.min.js"></script>
-    <script type="text/javascript" src="https://code.angularjs.org/1.2.2/angular-mocks.js"></script>  -->
-
-    <script>
-        jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
-            savePath: '..',
-            consolidateAll: false
-        }));
-    </script>
-
     <!-- include source files here... -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/nhApp.css">
-    <script src="../lib/requirejs/require.js" data-main="../js/main.js"></script>
-
-    <!-- include spec files here... -->
-    <script type="text/javascript" src="spec/newhireAppSpec.js"></script>
+    <script data-main="../js/main-ut.js" src="../lib/requirejs/require.js"></script>
+    <script type="text/javascript">
+    require(['../unit/spec/newhireAppSpec'],
+        function(spec) {
+            jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+                savePath: '..',
+                consolidateAll: false
+            }));
+            jasmine.getEnv().execute();
+        }
+    );
+    </script>
 
 </head>
 

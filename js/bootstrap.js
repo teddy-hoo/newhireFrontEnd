@@ -1,6 +1,7 @@
 define([
     'require',
     'angular',
+    'angular-mocks',
     'nhApp',
     'routes'
 ], function(require, ng) {
