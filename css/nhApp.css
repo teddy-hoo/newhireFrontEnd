@@ -178,3 +178,7 @@ a:hover {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+.navbar-right {
+  margin-right: 5px !important;
+}

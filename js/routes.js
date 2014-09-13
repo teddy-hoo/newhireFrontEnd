@@ -14,6 +14,10 @@ define(['./nhApp'], function(nhApp) {
                     templateUrl: 'partials/home.html',
                     controller: 'HomeCtrl'
                 })
+                .when('/upload', {
+                    templateUrl: 'partials/upload.html',
+                    controller: 'UploadCtrl'
+                })
                 .otherwise({
                     redirectTo: '/main'
                 });
