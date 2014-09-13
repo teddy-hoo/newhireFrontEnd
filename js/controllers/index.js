@@ -7,5 +7,6 @@
 define([
     './LoginCtrl',
     './MainCtrl',
-    './HomeCtrl'
+    './HomeCtrl',
+    './UploadCtrl'
 ], function () {});
