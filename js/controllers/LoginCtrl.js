@@ -21,7 +21,9 @@ define(['./module'], function(controllers) {
             };
 
             $scope.userCountInfo = {};
-            UserCountSvc($scope.userCountInfo);
+            UserCountSvc(function(data) {
+                $scope.userCountInfo = data;
+            });
             var loginFunc = function() {
                 $scope.showLoadingIcon = true;
                 LoginSvc.setUserInfo($scope.userInfo);

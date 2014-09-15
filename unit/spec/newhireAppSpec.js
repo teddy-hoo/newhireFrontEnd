@@ -1,12 +1,13 @@
-define(['nhApp'], function() {
+define(['nhApp', 'api'], function(API) {
     describe('nhApp', function() {
 
         beforeEach(module('nhApp'));
 
         describe("MainCtrl", function() {
-            var $scope, createController;
-            var $httpBackend, $scope, createController;
+            var $httpBackend, $scope, createController, $location;
             beforeEach(inject(function($injector) {
+                $location = $injector.get('$location');
+                $httpBackend = $injector.get('$httpBackend');
                 $scope = $injector.get('$rootScope');
                 var $controller = $injector.get('$controller');
                 createController = function() {
@@ -23,122 +24,70 @@ define(['nhApp'], function() {
                 expect($scope.showNavBar).toBe(false);
             });
 
-        });
-
-        describe("cRealtimeInfo", function() {
-            var $httpBackend, $rootScope, createController;
-            beforeEach(inject(function($injector) {
-                $httpBackend = $injector.get('$httpBackend');
-                $httpBackend.when('GET', API.realTimeInfo)
-                    .respond({
-                        candidates: 1045646,
-                        hires: 12346,
-                        users: 586
-                    });
-                $rootScope = $injector.get('$rootScope');
-                var $controller = $injector.get('$controller');
-                createController = function() {
-                    return $controller('cRealtimeInfo', {
-                        '$scope': $rootScope
-                    });
-                };
-            }));
-
-            it("should get real time info", function() {
-                $httpBackend.expectGET(API.realTimeInfo);
+            it("should logout", function() {
                 var controller = createController();
-                setTimeout(function() {
-                    $httpBackend.flush();
-                }, 100);
-                expect(controller).toBeDefined();
-            });
-        });
-
-        describe("cLogin", function() {
-            var $httpBackend, $scope, createController;
-            beforeEach(inject(function($injector) {
-                $httpBackend = $injector.get('$httpBackend');
+                $httpBackend
+                $scope.logout();
                 $httpBackend.when('POST', API.auth)
                     .respond({
                         status: 200
                     });
+                $httpBackend.when('DELETE', API.auth)
+                    .respond({
+                        status: 200
+                    });
+                $httpBackend.flush();
+                expect($scope.showNavBar).toBe(false);
+                expect($location.path()).toBe('/login');
+            });
+
+        });
+
+        describe("LoginCtrl", function() {
+            var $httpBackend, $scope, createController, $location;
+            beforeEach(inject(function($injector) {
+                $location = $injector.get('$location');
+                $httpBackend = $injector.get('$httpBackend');
+                $httpBackend.when('GET', API.realTimeInfo)
+                    .respond({
+                        candidates: 200,
+                        hires: 200,
+                        users: 200
+                    });
                 $scope = $injector.get('$rootScope');
                 var $controller = $injector.get('$controller');
                 createController = function() {
-                    return $controller('cLogin', {
+                    return $controller('LoginCtrl', {
                         '$scope': $scope
                     });
                 };
             }));
 
-            it("should validate username and password", function() {
+            it("should run login function when enter keydown", function() {
                 var controller = createController();
-                $scope.userInfo.username = "test";
-                $scope.userInfo.password = "test";
-                $scope.validate();
-                expect($scope.timeOut).toBeDefined();
+                $httpBackend.when('POST', API.auth)
+                    .respond({
+                        status: 200
+                    });
+                var event = {};
+                event.keyCode = 13;
+                $scope.keyDown(event);
+                $httpBackend.flush();
+                expect($location.path()).toBe("/home");
             });
 
-            it("should display loading icon", function() {
+            it("should get candidates info", function(){
                 var controller = createController();
-                $scope.userInfo.username = 'test';
+                $httpBackend.flush();
+                expect($scope.userCountInfo.candidates).toBe(200);
+            });
+
+            it("should validate user input", function(){
+                var controller = createController();
+                $scope.userInfo.username = '';
                 $scope.userInfo.password = 'test';
                 $scope.validate();
-                expect($scope.showLoadingIcon).toBe(false);
-            });
-        });
-
-        describe("cBody", function() {
-            var $httpBackend, createController, $scope;
-            beforeEach(inject(function($injector) {
-                var $controller = $injector.get('$controller');
-                $httpBackend = $injector.get('$httpBackend');
-                $scope = $injector.get('$rootScope');
-                createController = function() {
-                    return $controller('cBody', {
-                        '$scope': $scope
-                    });
-                };
-            }));
-
-            it("should change current page", function() {
-                var controller = createController();
-                $httpBackend.when('POST', API.auth)
-                    .respond({
-                        status: true
-                    });
-                $httpBackend.expectPOST(API.auth);
-                $scope.$emit("changePage", "pHome");
-                $httpBackend.flush();
-                expect($scope.showPages.pLogin).toBe(false);
-                expect($scope.showPages.pHome).toBe(true);
-            });
-        });
-
-        describe("login", function() {
-            var $httpBackend, $http;
-            beforeEach(inject(function($injector) {
-                $httpBackend = $injector.get('$httpBackend');
-                $http = $injector.get('$http');
-            }));
-            it("should send correct username and password", function() {
-                var oLogin = new Login($http);
-                $httpBackend.when('POST', API.auth)
-                    .respond({
-                        status: true
-                    });
-                $httpBackend.expectPOST(API.auth);
-                oLogin.setUserInfo({
-                    "username": "test",
-                    "password": "test"
-                });
-                var flag;
-                var cb = function(isValid) {
-                    flag = isValid ? true : false;
-                };
-                oLogin.login(cb);
-                $httpBackend.flush();
-                expect(flag).toBe(true);
+                expect($scope.errmsg).toBe("User name empty");
             });
         });
     });
